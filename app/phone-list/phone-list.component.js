@@ -1,18 +1,20 @@
-'use strict';
+(function() {
+  'use strict';
 
-// Register `phoneList` component, along with its associated controller and template
-angular.
-module('phoneList').
-component('phoneList', {
-  templateUrl: 'phone-list/phone-list.template.html',
-  controller: PhoneListController
-});
-
-function PhoneListController($http) {
-  var self = this;
-  this.orderProp = 'age';
-  $http.get('phones/phones.json').then(function(response) {
-    self.phones = response.data;
+  // Register `phoneList` component, along with its associated controller and template
+  angular.
+  module('phoneList').
+  component('phoneList', {
+    templateUrl: 'phone-list/phone-list.template.html',
+    controller: PhoneListController
   });
-}
-PhoneListController.$inject = ['$http'];
+
+  function PhoneListController($http) {
+    var self = this;
+    this.orderProp = 'age';
+    $http.get('phones/phones.json').then(function(response) {
+      self.phones = response.data;
+    });
+  }
+  PhoneListController.$inject = ['$http'];
+})();
