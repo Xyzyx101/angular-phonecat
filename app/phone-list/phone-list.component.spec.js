@@ -25,7 +25,5 @@ describe('phoneList', function() {
     it('should set a default value for the `orderProp` model', function() {
       expect(ctrl.orderProp).toBe('age');
     });
-
   });
-
 });
