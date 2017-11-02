@@ -6,15 +6,20 @@ describe('phoneList', function() {
   beforeEach(module('phoneList'));
 
   // Test the controller
-  describe('PhoneListController', function() {
-    var ctrl;
+  describe('controller', function() {
+    var $httpBackend, ctrl;
 
-    beforeEach(inject(function($componentController) {
+    beforeEach(inject(function($componentController, _$httpBackend_) {
+      $httpBackend = _$httpBackend_;
+      $httpBackend.expectGET('phones/phones.json')
+        .respond([{name: 'Nexus S'}, {name: 'Motorola DROID'}, {name: 'Bacon Cheese Burger'}]);
       ctrl = $componentController('phoneList');
     }));
 
-    it('should create a `phones` model with 3 phones', function() {
-      expect(ctrl.phones.length).toBe(3);
+    it('should create a `phones` model with 3 phones using http', function() {
+      expect(ctrl.phones).toBeUndefined();
+      $httpBackend.flush();
+        expect(ctrl.phones.length).toBe(3);
     });
 
     it('should set a default value for the `orderProp` model', function() {
