@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-    .module('core', []);
+    .module('core', ['core.phone']);
   })();

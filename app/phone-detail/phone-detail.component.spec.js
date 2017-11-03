@@ -2,6 +2,9 @@
 describe('phoneDetail', function() {
 
   beforeEach(module('phoneDetail'));
+  beforeEach(function() {
+    jasmine.addCustomEqualityTester(angular.equals);
+  });
 
   describe('PhoneDetailController', function() {
     var $httpBackend, ctrl;
@@ -16,9 +19,13 @@ describe('phoneDetail', function() {
       $routeParams.phoneId = 'xyz';
       ctrl = $componentController('phoneDetail');
     }));
-
+    afterEach(function () {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+    
     it('should fetch the phone details', function() {
-      expect(ctrl.phone).toBeUndefined();
+      expect(ctrl.phone).toEqual({});
       $httpBackend.flush();
       expect(ctrl.phone).toEqual(xyzPhoneData);
     });
