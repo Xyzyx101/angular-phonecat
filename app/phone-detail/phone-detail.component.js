@@ -8,8 +8,11 @@
       controller : PhoneDetailController
     });
 
-    PhoneDetailController.$inject = ['$routeParams']
-    function PhoneDetailController($routeParams) {
-        this.phoneId = $routeParams.phoneId;
+    PhoneDetailController.$inject = ['$http', '$routeParams']
+    function PhoneDetailController($http, $routeParams) {
+      var self = this;
+      $http.get('phones/' + $routeParams.phoneId + '.json').then(function(response) {
+        self.phone = response.data;
+      });
     }
 })();
